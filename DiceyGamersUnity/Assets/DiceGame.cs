@@ -19,7 +19,7 @@ public class DiceGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Roll());
+        //Debug.Log(Roll());
     }
 
     void LoadOrCreateFiles()
@@ -33,7 +33,7 @@ public class DiceGame : MonoBehaviour
             die1 = JsonUtility.FromJson<DiceOdds>(temp);
             sr.Close();
             die1.ReTotal();
-            die1.Print();
+            //die1.Print();
         }
         else
         {
@@ -50,7 +50,7 @@ public class DiceGame : MonoBehaviour
             die2 = JsonUtility.FromJson<DiceOdds>(temp);
             sr.Close();
             die2.ReTotal();
-            die1.Print();
+            //die1.Print();
         }
         else
         {
