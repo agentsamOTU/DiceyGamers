@@ -15,4 +15,9 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene("Game"); //loads the game
     }
 
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // reloads current scene
+    }
+
 }
