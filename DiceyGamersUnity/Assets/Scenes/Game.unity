@@ -1389,7 +1389,6 @@ GameObject:
   m_Component:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
-  - component: {fileID: 963194226}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1397,14 +1396,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &963194226
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
 --- !u!20 &963194227
 Camera:
   m_ObjectHideFlags: 0
@@ -2210,8 +2201,8 @@ MonoBehaviour:
   dice2Rend: {fileID: 736151879}
   dice1Value: 1
   dice2Value: 1
-  winNotif: {fileID: 0}
-  loseNotif: {fileID: 0}
+  winNotif: {fileID: 615174318}
+  loseNotif: {fileID: 692063937}
   pBet: 0
   pWincon: 0
   pCash: 2000
@@ -2254,11 +2245,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a786370b3ad90342af8acdaf8cbab87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  game: {fileID: 0}
+  game: {fileID: 1357367812}
   Sockets: {fileID: 0}
   pBet: {fileID: 1837062074}
   pWincon: {fileID: 527071042}
-  pCash: {fileID: 0}
+  pCash: {fileID: 1243039856}
 --- !u!1 &1391738689
 GameObject:
   m_ObjectHideFlags: 0
