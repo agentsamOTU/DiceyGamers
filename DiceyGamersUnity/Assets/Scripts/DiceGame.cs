@@ -1,4 +1,4 @@
-using System;
+//using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -33,12 +33,12 @@ public class DiceGame : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        MenuManager.Instance.pCash.text = pCash.ToString();
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        MenuManager.Instance.pCash.text = pCash.ToString();
         LoadOrCreateFiles();
         diceSides = Resources.LoadAll<Texture>("DiceSides/");//loads in all 6 dice sides
     }
@@ -47,7 +47,7 @@ public class DiceGame : MonoBehaviour
     void Update()
     {
         dice1Rend.texture = diceSides[dice1Value - 1]; // updates dice 1 sprite
-        dice2Rend.texture = diceSides[dice2Value - 1];// updates dice 2 sprite
+        dice2Rend.texture = diceSides[dice2Value -1];// updates dice 2 sprite
         //Debug.Log(Roll());
     }
 
@@ -92,35 +92,35 @@ public class DiceGame : MonoBehaviour
     }
     public void Roll()
     {
-        if (pBet != 0)
+        if (pBet == 0)
         {
             AudioManager.instance.PlayClip(0);
-            int total = 0;
-            float random = UnityEngine.Random.Range(0.0f, die1.total);
+
+            float random = Random.Range(0.0f, die1.total);
             float running = 0;
             for (int i = 0; i < die1.sideOdds.Length; i++)
             {
                 running += die1.sideOdds[i];
                 if (random < running)
                 {
-                    total += i + 1;
+                    dice1Value = i + 1;
                     break;
                 }
             }
 
-            random = UnityEngine.Random.Range(0.0f, die2.total);
+            random = Random.Range(0.0f, die2.total);
             running = 0;
             for (int i = 0; i < die2.sideOdds.Length; i++)
             {
                 running += die2.sideOdds[i];
                 if (random < running)
                 {
-                    total += i + 1;
+                    dice2Value = i + 1;
                     break;
                 }
             }
 
-            WinCheck(total);
+            //WinCheck(total);
         }
     }
     public void WinCheck(int value)
