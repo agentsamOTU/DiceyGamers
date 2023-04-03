@@ -23,13 +23,17 @@ public class DiceGame : MonoBehaviour
     DiceOdds die1;
     DiceOdds die2;
 
+    public GameObject winNotif;
+    public GameObject loseNotif;
+
     public int pBet;
     public int pWincon;
-    public int pDice;
+    public int pCash = 2000;
 
     private void Awake()
     {
         instance = this;
+        MenuManager.Instance.pCash.text = pCash.ToString();
     }
 
     // Start is called before the first frame update
@@ -88,64 +92,88 @@ public class DiceGame : MonoBehaviour
     }
     public void Roll()
     {
-        int total=0;
-        float random = UnityEngine.Random.Range(0.0f, die1.total);
-        float running = 0;
-        for(int i = 0; i<die1.sideOdds.Length;i++)
+        if (pBet != 0)
         {
-            running += die1.sideOdds[i];
-            if (random < running)
+            AudioManager.instance.PlayClip(0);
+            int total = 0;
+            float random = UnityEngine.Random.Range(0.0f, die1.total);
+            float running = 0;
+            for (int i = 0; i < die1.sideOdds.Length; i++)
             {
-                total += i + 1;
-                break;
+                running += die1.sideOdds[i];
+                if (random < running)
+                {
+                    total += i + 1;
+                    break;
+                }
             }
-        }
 
-        random = UnityEngine.Random.Range(0.0f, die2.total);
-        running = 0;
-        for (int i = 0; i < die2.sideOdds.Length; i++)
-        {
-            running += die2.sideOdds[i];
-            if (random < running)
+            random = UnityEngine.Random.Range(0.0f, die2.total);
+            running = 0;
+            for (int i = 0; i < die2.sideOdds.Length; i++)
             {
-                total += i + 1;
-                break;
+                running += die2.sideOdds[i];
+                if (random < running)
+                {
+                    total += i + 1;
+                    break;
+                }
             }
+
+            WinCheck(total);
         }
-
-        WinCheck(total);
-
     }
     public void WinCheck(int value)
     {
-        int pCash;
         switch (pWincon) 
         {
             case 0:
-                if (value < pDice) 
+                if (value < 7) 
                 {
-                    pCash = MenuManager.Instance.pCash.text.ConvertTo<int>();
+                    StartCoroutine(Win());
                     pCash += pBet * 2;
                     MenuManager.Instance.pCash.text = pCash.ToString();
                 }
                 break;
                 case 1:
-                if (value == pDice)
+                if (value == 7)
                 {
-                    pCash = MenuManager.Instance.pCash.text.ConvertTo<int>();
+                    StartCoroutine(Win());
                     pCash += pBet * 3;
                     MenuManager.Instance.pCash.text = pCash.ToString();
                 }
                 break;
                 case 2:
-                if (value > pDice)
+                if (value > 7)
                 {
-                    pCash = MenuManager.Instance.pCash.text.ConvertTo<int>();
+                    StartCoroutine(Win());
                     pCash += pBet * 2;
                     MenuManager.Instance.pCash.text = pCash.ToString();
                 }
                 break;
+                default:
+                pBet = 0;
+                MenuManager.Instance.pBet.text = "0";
+                StartCoroutine(Lose());
+                break;
         }
+    }
+
+
+    public IEnumerator Win()
+    {
+        winNotif.SetActive(true);
+        AudioManager.instance.PlayClip(2);
+        yield return new WaitForSeconds(1);
+        winNotif.SetActive(false);
+    }
+
+    public IEnumerator Lose()
+    {
+        loseNotif.SetActive(true);
+        AudioManager.instance.PlayClip(1);
+        yield return new WaitForSeconds(1);
+        loseNotif.SetActive(false);
     }
 }
 

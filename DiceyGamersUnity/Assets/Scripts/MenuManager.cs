@@ -13,7 +13,6 @@ public class MenuManager : MonoBehaviour
 
     public TextMeshProUGUI pBet;
     public TextMeshProUGUI pWincon;
-    public TextMeshProUGUI pDice;
     public TextMeshProUGUI pCash;
 
     private void Awake()
