@@ -48,6 +48,9 @@ public class Sockets : MonoBehaviour
             Array.Copy(data, 4, var2,0,4);
             Debug.Log(BitConverter.ToInt32(var1));
             Debug.Log(BitConverter.ToInt32(var2));
+            MenuManager.Instance.pBet.text = BitConverter.ToString(var1);
+            MenuManager.Instance.pDice.text = BitConverter.ToString(var2);
+
 
             send.Close();
 

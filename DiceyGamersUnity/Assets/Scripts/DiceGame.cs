@@ -1,11 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class DiceGame : MonoBehaviour
 {
+    public static DiceGame instance { get; private set; }
+
     [SerializeField] private Texture[] diceSides;
     [SerializeField] private RawImage dice1Rend; //0 - 5 for the dice sides
     [SerializeField] private RawImage dice2Rend; //0 - 5 for the dice sides
@@ -17,6 +22,16 @@ public class DiceGame : MonoBehaviour
     string die2Path;
     DiceOdds die1;
     DiceOdds die2;
+
+    public int pBet;
+    public int pWincon;
+    public int pDice;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -71,10 +86,10 @@ public class DiceGame : MonoBehaviour
             sw.Close();
         }
     }
-    public int Roll()
+    public void Roll()
     {
         int total=0;
-        float random = Random.Range(0.0f, die1.total);
+        float random = UnityEngine.Random.Range(0.0f, die1.total);
         float running = 0;
         for(int i = 0; i<die1.sideOdds.Length;i++)
         {
@@ -86,7 +101,7 @@ public class DiceGame : MonoBehaviour
             }
         }
 
-        random = Random.Range(0.0f, die2.total);
+        random = UnityEngine.Random.Range(0.0f, die2.total);
         running = 0;
         for (int i = 0; i < die2.sideOdds.Length; i++)
         {
@@ -98,7 +113,39 @@ public class DiceGame : MonoBehaviour
             }
         }
 
-        return total;
+        WinCheck(total);
+
+    }
+    public void WinCheck(int value)
+    {
+        int pCash;
+        switch (pWincon) 
+        {
+            case 0:
+                if (value < pDice) 
+                {
+                    pCash = MenuManager.Instance.pCash.text.ConvertTo<int>();
+                    pCash += pBet * 2;
+                    MenuManager.Instance.pCash.text = pCash.ToString();
+                }
+                break;
+                case 1:
+                if (value == pDice)
+                {
+                    pCash = MenuManager.Instance.pCash.text.ConvertTo<int>();
+                    pCash += pBet * 3;
+                    MenuManager.Instance.pCash.text = pCash.ToString();
+                }
+                break;
+                case 2:
+                if (value > pDice)
+                {
+                    pCash = MenuManager.Instance.pCash.text.ConvertTo<int>();
+                    pCash += pBet * 2;
+                    MenuManager.Instance.pCash.text = pCash.ToString();
+                }
+                break;
+        }
     }
 }
 
