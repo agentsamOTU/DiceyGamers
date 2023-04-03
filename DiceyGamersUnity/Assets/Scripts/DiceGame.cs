@@ -120,7 +120,7 @@ public class DiceGame : MonoBehaviour
                 }
             }
 
-            //WinCheck(total);
+            WinCheck(dice2Value+dice1Value);
         }
     }
     public void WinCheck(int value)
