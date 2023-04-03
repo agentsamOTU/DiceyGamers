@@ -92,7 +92,7 @@ public class DiceGame : MonoBehaviour
     }
     public void Roll()
     {
-        if (pBet == 0)
+        if (pBet != 0)
         {
             AudioManager.instance.PlayClip(0);
 
