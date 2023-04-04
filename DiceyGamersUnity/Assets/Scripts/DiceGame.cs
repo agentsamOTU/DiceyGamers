@@ -92,8 +92,12 @@ public class DiceGame : MonoBehaviour
     }
     public void Roll()
     {
-        if (pBet != 0)
+        if (pBet > 0||MenuManager.Instance.pBet.text!="error"||MenuManager.Instance.pWincon.text!="error")
         {
+            pCash -= pBet;
+            MenuManager.Instance.pCash.text =pCash.ToString();
+
+
             AudioManager.instance.PlayClip(0);
 
             float random = Random.Range(0.0f, die1.total);

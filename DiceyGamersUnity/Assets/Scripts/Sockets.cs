@@ -56,7 +56,7 @@ public class Sockets : MonoBehaviour
         Debug.Log(num2);
         if (num1 <= DiceGame.instance.pCash||num1!=-1)
         {
-            DiceGame.instance.pCash -= num1;
+            //DiceGame.instance.pCash -= num1;
             DiceGame.instance.pBet = num1;
             MenuManager.Instance.pCash.text = DiceGame.instance.pCash.ToString();
             MenuManager.Instance.pBet.text = num1.ToString();
